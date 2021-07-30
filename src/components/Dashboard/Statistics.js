@@ -4,23 +4,52 @@ import { statisticsSelector } from "../../selectors/StatisticsSelectors";
 import * as statisticsActions from "../../actions/StatisticsActions";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
-import Fab from "@material-ui/core/Fab";
-import Divider from "@material-ui/core/Divider";
-import { Doughnut } from "react-chartjs-2";
+import PropTypes from "prop-types";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Box from "@material-ui/core/Box";
 import "./dashboard.scss";
+import { DriveEtaSharp } from "@material-ui/icons";
+
+function CircularProgressWithLabel(props) {
+  return (
+    <Box
+      position="relative"
+      display="inline-flex"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        marginTop: "30px",
+        marginLeft: "-60px",
+        marginBottom: "30px",
+      }}
+    >
+      <CircularProgress
+        variant="determinate"
+        {...props}
+        style={{ width: 100, color: "green", primaryColor: "gray" }}
+      />
+      <Box
+        top={5}
+        left={50}
+        bottom={0}
+        right={0}
+        position="absolute"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <div className="fab__title">{`${Math.round(props.value)}%`}</div>
+      </Box>
+    </Box>
+  );
+}
+CircularProgressWithLabel.propTypes = {
+  value: PropTypes.number.isRequired,
+};
 
 export default function Statistics() {
   const dispatch = useDispatch();
   const example = useSelector(statisticsSelector);
-  const data = {
-    datasets: [
-      {
-        data: [50, 50],
-        backgroundColor: ["rgb(54, 162, 235)", "#DCDCDC"],
-        hoverOffset: 2,
-      },
-    ],
-  };
 
   useEffect(() => {
     dispatch(statisticsActions.getStatistics());
@@ -28,58 +57,60 @@ export default function Statistics() {
   return (
     // eslint-disable-next-line react/jsx-filename-extension
     <div style={{ margin: "20px" }}>
-      <h2>Estadisticas de los pedidos</h2>
-      <p>Lunes, 10 de {example}</p>
+      <div className="statistics__header">
+        <h2>Estadisticas de los pedidos</h2>
+        <p className="statistics__date">Lunes, 10 de {example}</p>
+      </div>
       <Grid container spacing={5}>
         <Grid item xs={3}>
-          <Card className="card">
+          <div className="card">
             <div className="card__content">
               <h4>Pedidos Pendientes</h4>
-              <Divider
-                variant="middle"
-                style={{ color: "black", backgroundColor: "black" }}
-              />
-              <Doughnut data={data} />
-              <p>90 de 100</p>
+              <hr className="divider"></hr>
+              {/* <div className="fab">
+                <h2 className="fab__title">25</h2>
+              </div> */}
+              <CircularProgressWithLabel value={90}></CircularProgressWithLabel>
+              <p>25 de 100</p>
             </div>
-          </Card>
+          </div>
         </Grid>
         <Grid item xs={3}>
-          <Card className="card">
+          <div className="card">
             <div className="card__content">
               <h4>2dos Intentos Pendientes</h4>
-              <Divider />
-              <Fab aria-label="save">
+              <hr className="divider"></hr>
+
+              <div className="fab">
                 <h2 className="fab__title">90</h2>
-              </Fab>
+              </div>
               <p>90 de 100</p>
             </div>
-          </Card>
+          </div>
         </Grid>
         <Grid item xs={3}>
-          <Card className="card">
+          <div className="card">
             <div className="card__content">
               <h4>Despachos Pendientes</h4>
-              <Divider />
-              <Fab aria-label="save">
+              <hr className="divider"></hr>
+              <div className="fab">
                 <h2 className="fab__title">90</h2>
-              </Fab>
+              </div>
               <p>90 de 100</p>
             </div>
-          </Card>
+          </div>
         </Grid>
         <Grid item xs={3}>
-          <Card className="card">
+          <div className="card">
             <div className="card__content">
               <h4>Devoluciones pendientes</h4>
-              <Divider variant="middle" />
-
-              <Fab aria-label="save">
+              <hr className="divider"></hr>
+              <div className="fab">
                 <h2 className="fab__title">90</h2>
-              </Fab>
+              </div>
               <p>90 de 100</p>
             </div>
-          </Card>
+          </div>
         </Grid>
       </Grid>
     </div>

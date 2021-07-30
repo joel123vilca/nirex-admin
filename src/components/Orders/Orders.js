@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -9,7 +9,17 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import Chip from "@material-ui/core/Chip";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
+import "./Order.scss";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
+const top100Films = [
+  { title: "Pediente", year: 1994 },
+  { title: "Confirmado", year: 1972 },
+  { title: "Completado", year: 1974 },
+];
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.action.hover,
@@ -34,10 +44,14 @@ function createData(state, order, client, orders, service, vehicle, partner) {
 
 const rows = [
   createData("Pendiente", 159, "Carlos vilca", 24, "Next Day", "Moto", "?"),
-  createData("Confirm", 237, "Juan Vilca", 37, "Next Day", "Moto", "?"),
-  createData("Completo", 262, "Ana vilca", 24, "Next Day", "Moto", "?"),
-  createData("Enviado", 305, "andres vilca", 67, "Next Day", "Moto", "?"),
-  createData("Enviado", 356, "Carlos", 49, "Next Day", "Moto", "?"),
+  createData("En ruta", 237, "Juan Vilca", 37, "Next Day", "Moto", "?"),
+  createData("Asignado", 262, "Ana vilca", 24, "Next Day", "Moto", "?"),
+  createData("Rechazado", 305, "andres vilca", 67, "Next Day", "Moto", "?"),
+  createData("Finalizado", 356, "Carlos", 49, "Next Day", "Moto", "?"),
+  createData("En ruta", 237, "Juan Vilca", 37, "Next Day", "Moto", "?"),
+  createData("Asignado", 262, "Ana vilca", 24, "Next Day", "Moto", "?"),
+  createData("Rechazado", 305, "andres vilca", 67, "Next Day", "Moto", "?"),
+  createData("Finalizado", 356, "Carlos", 49, "Next Day", "Moto", "?"),
 ];
 
 const useStyles = makeStyles({
@@ -48,9 +62,78 @@ const useStyles = makeStyles({
 
 const Orders = () => {
   const classes = useStyles();
+  const [selectedDate, setSelectedDate] = useState(
+    new Date("2014-08-18T21:11:54")
+  );
+  const [state, setState] = useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
+  const status = {
+    Pediente: "#C4C4C4",
+    "En ruta": "#00F8F8",
+    Asignado: "#1976d2",
+    Rechazado: "red",
+    Finalizado: "green",
+  };
+  const [age, setAge] = useState("");
+
   return (
     <div style={{ margin: "20px" }}>
-      <h2>Pedidos</h2>
+      <div className="header__titles">
+        <h2>Lista de Pedidos</h2>
+        <p className="order__date">Sabado, 28 julio</p>
+      </div>
+      <div className="header">
+        <Autocomplete
+          id="combo-box-demo"
+          options={top100Films}
+          size="small"
+          getOptionLabel={(option) => option.title}
+          style={{ width: 150 }}
+          renderInput={(params) => (
+            <TextField {...params} label="Estados" variant="outlined" />
+          )}
+        />
+        <TextField
+          id="date"
+          label="Fecha"
+          type="date"
+          variant="outlined"
+          size="small"
+          defaultValue="2017-05-24"
+          className="header__picker"
+          style={{ width: 150, marginLeft: 20 }}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        <TextField
+          id="outlined-basic"
+          label="Buscar"
+          variant="outlined"
+          size="small"
+          style={{ width: 220, marginLeft: 20 }}
+        />
+        <Button
+          variant="contained"
+          size="small"
+          style={{
+            backgroundColor: "#084c71",
+            color: "white",
+            marginLeft: -10,
+          }}
+        >
+          Buscar
+        </Button>
+        {/* <div className="export__btn">
+            <Button variant="contained" size="small">
+              Exportar
+            </Button>
+          </div> */}
+      </div>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
@@ -72,7 +155,7 @@ const Orders = () => {
                 <StyledTableCell component="th" scope="row">
                   <Chip
                     label={row.state}
-                    style={{ backgroundColor: "#7fffd4" }}
+                    style={{ backgroundColor: status[row.state], width: 100 }}
                   />
                 </StyledTableCell>
                 <StyledTableCell align="right">{row.order}</StyledTableCell>

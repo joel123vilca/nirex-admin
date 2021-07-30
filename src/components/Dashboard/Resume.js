@@ -1,55 +1,150 @@
 import React from "react";
-import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
-import LinearProgress from "@material-ui/core/LinearProgress";
+import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import "./dashboard.scss";
 
-const BorderLinearProgress = withStyles((theme) => ({
-  root: {
-    height: 10,
-    borderRadius: 5,
-  },
-  colorPrimary: {
-    backgroundColor: "red",
-  },
-  bar: {
-    borderRadius: 5,
-    backgroundColor: "green",
-  },
-}))(LinearProgress);
-
 export default function Resume() {
+  const valor = "50%";
+  const valor2 = 20;
   return (
     <div style={{ margin: "20px" }}>
-      <h2>Estados de entrega</h2>
+      <div className="resume">
+        <h2>Linea de tiempo</h2>
+      </div>
       <Grid container spacing={5}>
         <Grid item xs={12}>
-          <Card className="card">
+          <Card className="resume__card">
             <h4>Pedidos recogidos</h4>
-            <BorderLinearProgress variant="determinate" value={90} />
+            <p style={{ marginLeft: valor }}>| {valor}</p>
+            <div className="progress">
+              <div
+                role="progressbar"
+                style={{
+                  width: valor,
+                  color: "green",
+                  backgroundColor: "green",
+                }}
+              >
+                green
+              </div>
+              <div
+                role="progressbar"
+                style={{
+                  width: "10%",
+                  color: "orange",
+                  backgroundColor: "orange",
+                }}
+              >
+                orange
+              </div>
+              <div
+                role="progressbar"
+                style={{
+                  width: "40%",
+                  backgroundColor: "gray",
+                  color: "gray",
+                }}
+              >
+                gray
+              </div>
+            </div>
+            <p style={{ marginLeft: valor, marginTop: "3px" }}>
+              <AccessTimeIcon />
+              <span style={{ marginTop: "3px", position: "absolute" }}>
+                8:00 pm
+              </span>
+            </p>
             <div className="card__footer">
-              <div>5 recojos fuera de hora</div>
-              <div>Hasta 8:00 am</div>
+              <div> Total 40</div>
             </div>
           </Card>
         </Grid>
         <Grid item xs={12}>
-          <Card className="card">
+          <Card className="resume__card">
             <h4>Pedidos completados</h4>
-            <BorderLinearProgress variant="determinate" value={90} />
+            <p style={{ marginLeft: valor }}>| {valor}</p>
+            <div className="progress">
+              <div
+                role="progressbar"
+                style={{
+                  width: valor,
+                  color: "green",
+                  backgroundColor: "green",
+                }}
+              >
+                green
+              </div>
+              <div
+                role="progressbar"
+                style={{
+                  width: "10%",
+                  color: "orange",
+                  backgroundColor: "orange",
+                }}
+              >
+                orange
+              </div>
+              <div
+                role="progressbar"
+                style={{
+                  width: "40%",
+                  backgroundColor: "gray",
+                  color: "gray",
+                }}
+              >
+                gray
+              </div>
+            </div>
             <div className="card__footer">
-              <div>10 recojos con retraso</div>
-              <div>Hasta 7:00 pm</div>
+              <div> Total 40</div>
             </div>
           </Card>
         </Grid>
         <Grid item xs={12}>
-          <Card className="card">
+          <Card className="resume__card">
             <h4>Despachos completados</h4>
-            <BorderLinearProgress variant="determinate" value={90} />
+            <p style={{ marginLeft: valor }}>| {valor}</p>
+            <div className="progress">
+              <div
+                role="progressbar"
+                style={{
+                  width: valor,
+                  color: "green",
+                  backgroundColor: "green",
+                }}
+              >
+                green
+              </div>
+              <div
+                role="progressbar"
+                style={{
+                  width: "10%",
+                  color: "orange",
+                  backgroundColor: "orange",
+                }}
+              >
+                orange
+              </div>
+              <div
+                role="progressbar"
+                style={{
+                  width: "40%",
+                  backgroundColor: "gray",
+                  color: "gray",
+                }}
+              >
+                gray
+              </div>
+            </div>
+            <p style={{ marginLeft: valor, marginTop: "3px" }}>
+              <AccessTimeIcon />
+              <span style={{ marginTop: "3px", position: "absolute" }}>
+                8:00 pm
+              </span>
+            </p>
             <div className="card__footer">
-              <div>Hasta 7:00 pm</div>
+              <div> Total 40</div>
             </div>
           </Card>
         </Grid>

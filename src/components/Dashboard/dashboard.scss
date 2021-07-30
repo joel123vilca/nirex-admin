@@ -1,9 +1,16 @@
-.statistics  {
-  margin: 20px;
+.statistics__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.statistics__date {
+  margin-top: -10px;
 }
 .card {
   padding: 10px;
+  height: 220px;
   cursor: pointer;
+  box-shadow: 0px 2px 8px 1px rgba(0, 0, 0, 0.2);
 }
 .card__content {
   display: flex;
@@ -11,12 +18,40 @@
   justify-content: center;
   align-items: center;
 }
+.fab {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #dcdcdc;
+  display: flex;
+  text-align: center;
+  align-items: center;
+}
+.fab__title {
+  font-size: 28px;
+  padding: 30px;
+}
+.divider {
+  border: 1px solid gray;
+  width: 200px;
+  margin-top: -5px;
+}
+
+.resume {
+  display: flex;
+  justify-content: center;
+}
+.resume__card {
+  padding: 10px;
+}
 .card__footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin-top: 4px;
 }
 
-.fab__title  {
-  padding: 30px;
+.progress {
+  display: flex;
+  margin-top: -12px;
+  width: 100%;
 }
